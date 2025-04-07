@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import taskImg from "./../../assets/images/task_bg.png";
 import logo from "./../../assets/images/logo4.png";
 import logo2 from "./../../assets/images/logolatest.png";
 
@@ -11,6 +10,7 @@ import ProfilePhoto from "../ProfilePhoto/ProfilePhoto";
 import axios from "axios";
 import { ScaleLoader } from "react-spinners";
 import toast from "react-hot-toast";
+import Slider from "../mySlider/mySlider";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -307,11 +307,7 @@ function SignUp() {
             />
           </div>
           <div>
-            <img
-              src={taskImg}
-              alt=""
-              className=" w-[70%] lg:w-[55%] xl:w-[50%] mx-auto mt-20"
-            />
+             <Slider/>
           </div>
           <p className="p-3 text-white text-xl italic mt-24">
             Organize, prioritize, and track your tasks effortlessly

@@ -6,6 +6,7 @@ import { authContext } from "../../Context/AuthContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RingLoader } from "react-spinners";
 
 // Validation Schema
 const ProjectSchema = Yup.object().shape({
@@ -69,7 +70,9 @@ function UpdateProject() {
   }
 
   if (loading) {
-    return <div className="p-6">Loading project data...</div>;
+    return <div className="w-full h-[calc(100vh-75px)] flex justify-center items-center">
+    <div className=""><RingLoader color="#3B82F6"/></div>
+  </div>;
   }
 
   if (!project) {

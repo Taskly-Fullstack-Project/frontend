@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import VerificationInput from "react-verification-input";
-import taskImg from "./../../assets/images/task_bg.png";
 import logo from "./../../assets/images/logo4.png";
 import logo2 from "./../../assets/images/logolatest.png";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { ScaleLoader } from "react-spinners";
+import Slider from "../mySlider/mySlider";
 
 
 function VerificationCode() {
@@ -119,11 +119,7 @@ function VerificationCode() {
                   />
                 </div>
                 <div>
-                  <img
-                    src={taskImg}
-                    alt=""
-                    className=" w-[70%] lg:w-[55%] xl:w-[50%] mx-auto mt-20"
-                  />
+                   <Slider/>
                 </div>
                 <p className="p-3 text-white text-xl italic mt-24">
                   Organize, prioritize, and track your tasks effortlessly

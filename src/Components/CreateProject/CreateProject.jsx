@@ -23,34 +23,44 @@ const initialValues = {
 
 function CreateProject() {
   const { token } = useContext(authContext);
-  const navigate = useNavigate()
-  
-  async function handleSubmit(values) {
+  const navigate = useNavigate();
+  const [projectImage, setProjectImage] = useState(null);
+
+  async function handleSubmit(values, { setSubmitting }) {
     try {
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("description", values.description);
+      if (projectImage) {
+        formData.append("photo", projectImage);
+      }
+
       const response = await axios.post(
         "https://backend-production-574a.up.railway.app/api/v1/projects",
-        values,
+        formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      toast.success("Project Created Successfully")
-      navigate("/myprojects")
+
+      toast.success("Project Created Successfully");
+      navigate("/myprojects");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setSubmitting(false);
     }
   }
 
   return (
     <div className="flex flex-col md:flex-row">
-      
       <div className="max-[1080px]:hidden">
         <SideMenu />
       </div>
 
-      
       <div className="flex-1 p-6">
         <Formik
           initialValues={initialValues}
@@ -64,7 +74,7 @@ function CreateProject() {
                   Create Project
                 </h2>
 
-                
+                {/* Project Name */}
                 <div className="mb-4">
                   <label
                     htmlFor="name"
@@ -85,7 +95,7 @@ function CreateProject() {
                   />
                 </div>
 
-                
+                {/* Description */}
                 <div className="mb-4">
                   <label
                     htmlFor="description"
@@ -107,13 +117,33 @@ function CreateProject() {
                   />
                 </div>
 
-                
+                {/* Project Image Upload */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="image"
+                    className="text-sm font-medium text-gray-600"
+                  >
+                    Project Image
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setProjectImage(e.currentTarget.files[0])}
+                    className="w-full p-2 border rounded-md"
+                  />
+                </div>
+
+                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full mt-5 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors duration-200"
                 >
-                  {isSubmitting ? <ScaleLoader width={2} height={10} color="#ffffff" /> : "Create Project"}
+                  {isSubmitting ? (
+                    <ScaleLoader width={2} height={10} color="#ffffff" />
+                  ) : (
+                    "Create Project"
+                  )}
                 </button>
               </div>
             </Form>

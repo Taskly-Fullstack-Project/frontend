@@ -20,8 +20,10 @@
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.1",
+    "react-slick": "^0.30.3",
     "react-spinners": "^0.15.0",
     "react-verification-input": "^4.2.2",
+    "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.8.1",
     "yup": "^1.6.1"
   },

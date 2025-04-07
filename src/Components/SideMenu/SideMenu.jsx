@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import IMJK from "./../../assets/images/task_bg.png"
+
 import { MdDashboard,MdPeopleAlt  } from "react-icons/md";
 import { CiLogout,CiSquarePlus } from "react-icons/ci";
 import { FaTasks } from "react-icons/fa";
@@ -49,7 +49,7 @@ function SideMenu() {
   }
 
   return (
-    <div className=' w-52 h-[calc(100vh-62px)]  border-r border-gray-200/50  sticky top-[60px] z-20'>
+    <div className=' w-52 h-[calc(100vh-70px)]  border-r border-gray-200/50  sticky top-[60px] z-20'>
        <div className="flex flex-col items-center justify-center  mb-7 pt-5">
         <div className="relative">
         <img src={userData?.photo} alt='profilePic' className='w-20 h-20 bg-slate-400 rounded-full'/>

@@ -10,7 +10,7 @@ import { ScaleLoader } from "react-spinners";
 
 import logo from "./../../assets/images/logo4.png";
 import logo2 from "./../../assets/images/logolatest.png";
-import taskImg from "./../../assets/images/task_bg.png";
+import Slider from "../mySlider/mySlider";
 
 
 function Login() {
@@ -188,11 +188,12 @@ function Login() {
           />
         </div>
         <div>
-          <img
+          {/* <img
             src={taskImg}
             alt=""
             className=" w-[70%] lg:w-[55%] xl:w-[50%] mx-auto mt-20"
-          />
+          /> */}
+          <Slider/>
         </div>
         <p className="p-3 text-white text-xl italic mt-24">
           Organize, prioritize, and track your tasks effortlessly

@@ -5,7 +5,7 @@ import Navbar from '../Navbar/Navbar'
 function Layout() {
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       <Outlet/>
     </div>
   )

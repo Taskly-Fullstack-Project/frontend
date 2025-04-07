@@ -20,7 +20,7 @@ const TaskDetails = () => {
   const [commentLoading, setCommentLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
 
-  //  console.log(userData);
+  // console.log(userData);
   
 
   async function getTask() {
@@ -31,6 +31,8 @@ const TaskDetails = () => {
       setTask(response.data.data.task);
       
     } catch (error) {
+      toast.error(error.response.data.message);
+      navigate("/dashboard")
       console.error(error);
     }
   }
@@ -42,7 +44,7 @@ const TaskDetails = () => {
       });
       setComments(response.data.data.comments);
     } catch (error) {
-      console.error(error);
+      toast.error(error.response.data.message);
     }
   }
 
@@ -96,7 +98,7 @@ const TaskDetails = () => {
       );
       // console.log(response.data);
       toast.success("Task marked as done!");
-      
+      getTask()
     } catch (error) {
       console.error("Error marking task as done:", error);
       toast.error(error.response?.data?.message || "Failed to complete task");
@@ -168,7 +170,7 @@ const TaskDetails = () => {
 
   if (!task) {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
+      <div className="w-full h-[calc(100vh-75px)] flex justify-center items-center">
         <div className=""><RingLoader color="#3B82F6"/></div>
       </div>
     );
@@ -193,18 +195,19 @@ const TaskDetails = () => {
           )}
           <div className=" flex gap-4">
             
-          {userData.id == task.creator.user.id ?  <button
+          {(userData?.id == task.creator.user.id || userData?.id == task.projectManager) ?  <button
             onClick={() => setEditing(!editing)}
             className="p-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition"
           >
             Edit
-          </button>:""}
-          {((userData.id == task.creator.user.id) || (userData.id == task.member.user.id)) && (task.status!="FINISHED") ?  <button
+            </button>:""}
+          {( (userData.id == task.member.user.id)) && (task.status!="FINISHED") ?  <button
             onClick={() => taskDone()}
             className="flex justify-center items-center gap-2 p-2 bg-green-100 text-green-500 rounded-md hover:bg-blue-200 transition"
           >
             Finish the Task <FaCheckCircle />
           </button>:""}
+          
 
            
           

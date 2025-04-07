@@ -40,7 +40,7 @@ function MyProjects() {
   return (
     <div>
       {isLoading?(
-        <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-full h-[calc(100vh-75px)] flex justify-center items-center">
         <div className=""><RingLoader color="#3B82F6"/></div>
       </div> ):<div className="flex ">
         <div className="max-[1080px]:hidden ">

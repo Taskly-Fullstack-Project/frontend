@@ -52,14 +52,14 @@ function TaskCard({ project, getAllProjects }) {
         </button>
       </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex  items-center justify-between">
             
 
-      <div className="px-4 border-l-[4px] border-blue-500" onClick={() => {navigate("/projectdetails",{ state: { id: project.id } })}}>
+      <div className="px-4 w-[80%] border-l-[4px] border-blue-500" onClick={() => {navigate("/projectdetails",{ state: { id: project.id } })}}>
         <p className="text-sm font-medium text0gray-800 mt-4 line-clamp-2">
           {project.name}
         </p>
-        <p className="text-sm  text0gray-800 mt-1.5 line-clamp-2 leading[18px]">
+        <p className="text-sm w-full  text-gray-800 mt-1.5 line-clamp-2 leading[18px]">
           {project.description}
         </p>
         <p className="text-[13px] text-gray-700/80 font-medium mt-2 mb-2 leading-[18px]">

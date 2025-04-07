@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createHashRouter, RouterProvider } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/Signup/SignUp";
 import Layout from "./Components/Layout/Layout";
@@ -17,20 +17,20 @@ import ProjectDetails from "./Components/ProjectDetails/ProjectDetails";
 import CreateTask from "./Components/CreateTask/CreateTask";
 import UpdateProject from "./Components/UpdateProject/UpdateProject";
 import TaskDetails from "./Components/TaskDetails/TaskDetails";
-import socket from "./socket";
+import UserDetails from "./Components/UserDetails/UserDetails";
 
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
 
   const route = createBrowserRouter([
+    { path: "/", element: <Login /> },
+        { path: "/login", element: <Login /> },
+        { path: "/signup", element: <SignUp /> },
+        { path: "/verificationcode", element: <VerificationCode /> },
     {
       path: "",
       element: <Layout />,
       children: [
-        { path: "/", element: <Login /> },
-        { path: "/login", element: <Login /> },
-        { path: "/signup", element: <SignUp /> },
-        { path: "/verificationcode", element: <VerificationCode /> },
+        
         {
           path: "/dashboard",
           element: (
@@ -86,44 +86,20 @@ function App() {
               <TaskDetails />
             </ProtectedRoute>
           ),
+        },{
+          path: "/userdetails",
+          element: (
+            <ProtectedRoute>
+              <UserDetails />
+            </ProtectedRoute>
+          ),
         },
       ],
     },
   ]);
 
-  useEffect(() => {
-    function onConnect() {
-      console.log("connect");
-      
-      setIsConnected(true);
-    }
-
-    function onDisconnect() {
-      setIsConnected(false);
-    }
-
-    function onNotification(notification) {
-      console.log(notification);
-      
-    }
-
-    function onNotifications(notifications) {
-      console.log(notifications)
-    }
-
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-    socket.on("notification", onNotification);
-    socket.on("notifications", onNotifications);
-
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.off('notification',onNotification );
-      socket.off('notifications',onNotifications );
-    };
-  });
   
+
   return (
     <AuthContextProvider>
       <Toaster />

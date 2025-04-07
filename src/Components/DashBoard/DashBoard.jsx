@@ -15,6 +15,28 @@ function DashBoard() {
   const [tasks, setTAsks] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+    const [userData,setUserData] = useState(null)
+
+  async function getUserData() {
+    
+    try {
+      const {data} = await axios.get(
+        "https://backend-production-574a.up.railway.app/api/v1/users/me",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, 
+          },
+          
+          
+        }
+      );
+      setUserData(data.data.me)
+      //  console.log(data.data.me);
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   async function getTasks() {
     setIsLoading(true);
@@ -25,6 +47,8 @@ function DashBoard() {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
+      
+      
       setTAsks(response.data.data.tasks);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -34,12 +58,13 @@ function DashBoard() {
 
   useEffect(() => {
     getTasks();
+    getUserData();
   }, []);
 
   return (
     <>
       {isLoading ? (
-        <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-full h-[calc(100vh-75px)] flex justify-center items-center">
           <div className="">
             <RingLoader color="#3B82F6" />
           </div>
@@ -123,12 +148,7 @@ function DashBoard() {
                                 <tr className="border-t border-gray-200 text-center">
                                   <td
                                     onClick={() => {
-                                      navigate("/taskdetails", {
-                                        state: {
-                                          taskId: item.id,
-                                          projectId: item.project.id,
-                                        },
-                                      });
+                                      navigate("/taskdetails",{ state: { taskId: item.id , projectId:item.project.id ,userData:userData} })
                                     }}
                                     className="cursor-pointer my-3 mx-4 text-gray-700 text=[13px] line-clamp-1 overflow-hidden"
                                   >
